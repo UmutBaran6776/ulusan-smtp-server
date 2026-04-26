@@ -14,13 +14,13 @@
 #include "auth.h"
 #include "mail_store.h"
 #include "smtp_server.h"
-#include "pop3_server.h"
+#include "imap_server.h"
 
 namespace fs = std::filesystem;
 
 // ==================== Global Degiskenler ====================
 static const int SMTP_PORT = 25;
-static const int POP3_PORT = 11;
+static const int IMAP_PORT = 143;
 static const std::string DOMAIN = "ulusansigorta.com.tr";
 
 std::string currentUser = "";
@@ -463,12 +463,12 @@ int main() {
     store.addForwardingRule("teknik", "info");
     store.addForwardingRule("teknik", "fatos");
 
-    // SMTP ve POP3 sunucularini baslat
+    // SMTP ve IMAP sunucularini baslat
     SmtpServer smtp(SMTP_PORT, auth, store);
-    Pop3Server pop3(POP3_PORT, auth, store);
+    ImapServer imap(IMAP_PORT, auth, store);
 
     bool smtpOk = smtp.start();
-    bool pop3Ok = pop3.start();
+    bool imapOk = imap.start();
 
     clearScreen();
     std::cout << "\n";
@@ -481,10 +481,10 @@ int main() {
     std::cout << "  ------------------------------------------------------------\n";
     std::cout << "       Domain : " << DOMAIN << "\n";
     std::cout << "       IP     : 78.186.12.5\n";
-    std::cout << "       SMTP   : Port " << SMTP_PORT
+    std::cout << "       [SMTP]  Port " << SMTP_PORT
               << (smtpOk ? " [AKTIF]" : " [HATA]") << "\n";
-    std::cout << "       POP3   : Port " << POP3_PORT
-              << (pop3Ok ? " [AKTIF]" : " [HATA]") << "\n";
+    std::cout << "       [IMAP]  Port " << IMAP_PORT
+              << (imapOk ? " [AKTIF]" : " [HATA]") << "\n";
     std::cout << "  ------------------------------------------------------------\n";
     std::cout << "       Sirket Hesaplari:\n";
     std::cout << "         info@ulusansigorta.com.tr   (admin / info123)\n";
@@ -501,7 +501,7 @@ int main() {
     // Temizlik
     std::cout << "\n  Sunucu kapatiliyor...\n";
     smtp.stop();
-    pop3.stop();
+    imap.stop();
     utils::cleanupWinsock();
     LOG_INFO("=== Sunucu kapatildi ===");
 

@@ -44,6 +44,8 @@ public:
     std::vector<Mail> loadInbox(const std::string& username);
     std::vector<Mail> loadSent(const std::string& username);
     Mail getMail(const std::string& username, int index, bool isSent = false);
+    std::string getRawMail(const std::string& username, int index, bool isSent = false);
+    size_t getMailSize(const std::string& username, int index, bool isSent = false);
     bool deleteMail(const std::string& username, int index, bool isSent = false);
     int getMailCount(const std::string& username, bool isSent = false);
     long long getMailboxSize(const std::string& username);

@@ -12,7 +12,7 @@ SOURCES = $(SRCDIR)/main.cpp \
           $(SRCDIR)/auth.cpp \
           $(SRCDIR)/mail_store.cpp \
           $(SRCDIR)/smtp_server.cpp \
-          $(SRCDIR)/pop3_server.cpp
+          $(SRCDIR)/imap_server.cpp
 
 TARGET = ulusan_smtp.exe
 

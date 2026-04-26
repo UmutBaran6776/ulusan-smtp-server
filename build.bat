@@ -10,7 +10,7 @@ g++ -std=c++17 -Wall -Wextra -O2 -static -static-libgcc -static-libstdc++ -o ulu
     src/auth.cpp ^
     src/mail_store.cpp ^
     src/smtp_server.cpp ^
-    src/pop3_server.cpp ^
+    src/imap_server.cpp ^
     -lws2_32
 
 if %ERRORLEVEL% == 0 (

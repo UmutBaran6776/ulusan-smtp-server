@@ -189,6 +189,51 @@ Mail MailStore::getMail(const std::string& username, int index, bool isSent) {
     return Mail{};
 }
 
+// ==================== Ham EML İcerigi ====================
+std::string MailStore::getRawMail(const std::string& username, int index, bool isSent) {
+    std::lock_guard<std::mutex> lock(mtx);
+    std::string path = isSent ? getSentPath(username) : getInboxPath(username);
+    if (!fs::exists(path)) return "";
+
+    std::vector<fs::directory_entry> entries;
+    for (const auto& entry : fs::directory_iterator(path)) {
+        if (entry.path().extension() == ".eml") entries.push_back(entry);
+    }
+    std::sort(entries.begin(), entries.end(), [](const auto& a, const auto& b) {
+        return a.path().filename() > b.path().filename();
+    });
+
+    if (index >= 0 && index < (int)entries.size()) {
+        std::ifstream file(entries[index].path());
+        if (file) {
+            std::ostringstream ss;
+            ss << file.rdbuf();
+            return ss.str();
+        }
+    }
+    return "";
+}
+
+// ==================== Mail Boyutu ====================
+size_t MailStore::getMailSize(const std::string& username, int index, bool isSent) {
+    std::lock_guard<std::mutex> lock(mtx);
+    std::string path = isSent ? getSentPath(username) : getInboxPath(username);
+    if (!fs::exists(path)) return 0;
+
+    std::vector<fs::directory_entry> entries;
+    for (const auto& entry : fs::directory_iterator(path)) {
+        if (entry.path().extension() == ".eml") entries.push_back(entry);
+    }
+    std::sort(entries.begin(), entries.end(), [](const auto& a, const auto& b) {
+        return a.path().filename() > b.path().filename();
+    });
+
+    if (index >= 0 && index < (int)entries.size()) {
+        return fs::file_size(entries[index].path());
+    }
+    return 0;
+}
+
 // ==================== Mail Sil ====================
 bool MailStore::deleteMail(const std::string& username, int index, bool isSent) {
     std::lock_guard<std::mutex> lock(mtx);
