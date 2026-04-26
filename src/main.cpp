@@ -21,7 +21,7 @@ namespace fs = std::filesystem;
 // ==================== Global Degiskenler ====================
 static const int SMTP_PORT = 25;
 static const int POP3_PORT = 11;
-static const std::string DOMAIN = "ulusansigorta.com";
+static const std::string DOMAIN = "ulusansigorta.com.tr";
 
 std::string currentUser = "";
 UserRole currentRole = UserRole::USER;
@@ -440,9 +440,19 @@ int main() {
     AuthManager auth(dataDir);
     MailStore store(dataDir);
 
-    // Varsayilan admin hesabi
+    // Varsayilan sirket hesaplari
     auth.createDefaultAdmin();
     store.createMailbox("admin");
+
+    // Sirket mail hesaplari
+    if (!auth.userExists("info")) {
+        auth.registerUser("info", "info123", UserRole::ADMIN, "Ulusan Sigorta Bilgi");
+        store.createMailbox("info");
+    }
+    if (!auth.userExists("fatos")) {
+        auth.registerUser("fatos", "fatos123", UserRole::USER, "Fatos Ulusan");
+        store.createMailbox("fatos");
+    }
 
     // SMTP ve POP3 sunucularini baslat
     SmtpServer smtp(SMTP_PORT, auth, store);
@@ -461,12 +471,16 @@ int main() {
     std::cout << "       Berkay Demirci     - 230206064\n";
     std::cout << "  ------------------------------------------------------------\n";
     std::cout << "       Domain : " << DOMAIN << "\n";
+    std::cout << "       IP     : 78.186.12.5\n";
     std::cout << "       SMTP   : Port " << SMTP_PORT
               << (smtpOk ? " [AKTIF]" : " [HATA]") << "\n";
     std::cout << "       POP3   : Port " << POP3_PORT
               << (pop3Ok ? " [AKTIF]" : " [HATA]") << "\n";
     std::cout << "  ------------------------------------------------------------\n";
-    std::cout << "       Varsayilan Admin: admin / admin123\n";
+    std::cout << "       Sirket Hesaplari:\n";
+    std::cout << "         info@ulusansigorta.com.tr  (admin / info123)\n";
+    std::cout << "         fatos@ulusansigorta.com.tr (user  / fatos123)\n";
+    std::cout << "         admin                      (admin / admin123)\n";
     std::cout << "  ============================================================\n";
 
     std::this_thread::sleep_for(std::chrono::seconds(2));

@@ -107,7 +107,7 @@ inline std::string generateMessageId() {
     auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(
         now.time_since_epoch()).count();
     std::ostringstream oss;
-    oss << ms << "." << rand() << "@ulusansigorta.com";
+    oss << ms << "." << rand() << "@ulusansigorta.com.tr";
     return oss.str();
 }
 

@@ -46,7 +46,7 @@ void AuthManager::loadUsers() {
         user.passwordHash = hash;
         user.role = (roleStr == "ADMIN") ? UserRole::ADMIN : UserRole::USER;
         user.displayName = displayName;
-        user.email = username + "@ulusansigorta.com";
+        user.email = username + "@ulusansigorta.com.tr";
 
         users.push_back(user);
     }
@@ -100,7 +100,7 @@ bool AuthManager::registerUser(const std::string& username, const std::string& p
     newUser.passwordHash = hashPassword(password);
     newUser.role = role;
     newUser.displayName = displayName;
-    newUser.email = username + "@ulusansigorta.com";
+    newUser.email = username + "@ulusansigorta.com.tr";
 
     users.push_back(newUser);
     saveUsers();

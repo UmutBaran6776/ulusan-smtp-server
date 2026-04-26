@@ -22,7 +22,7 @@ struct User {
     std::string passwordHash;  // DJB2 hash
     UserRole role;             // ADMIN veya USER
     std::string displayName;   // Gorunen ad (ornek: Umut Baran Ulusan)
-    std::string email;         // username@ulusansigorta.com
+    std::string email;         // username@ulusansigorta.com.tr
 };
 
 class AuthManager {

@@ -142,7 +142,7 @@ void SmtpServer::handleClient(SOCKET clientSocket, std::string clientAddr) {
     std::string mailData;
 
     // 220 karsilama mesaji
-    sendResponse(clientSocket, "220 ulusansigorta.com ESMTP Ulusan Sigorta Mail Server Ready");
+    sendResponse(clientSocket, "220 ulusansigorta.com.tr ESMTP Ulusan Sigorta Mail Server Ready");
 
     while (true) {
         // DATA durumunda satir satir oku
@@ -255,7 +255,7 @@ void SmtpServer::handleClient(SOCKET clientSocket, std::string clientAddr) {
         // ---- EHLO / HELO ----
         if (utils::startsWithCI(cmd, "EHLO") || utils::startsWithCI(cmd, "HELO")) {
             std::string domain = (cmd.size() > 5) ? utils::trim(cmd.substr(5)) : "unknown";
-            sendResponse(clientSocket, "250-ulusansigorta.com Merhaba " + domain);
+            sendResponse(clientSocket, "250-ulusansigorta.com.tr Merhaba " + domain);
             sendResponse(clientSocket, "250-AUTH LOGIN PLAIN");
             sendResponse(clientSocket, "250-SIZE 10485760");
             sendResponse(clientSocket, "250 OK");
@@ -370,7 +370,7 @@ void SmtpServer::handleClient(SOCKET clientSocket, std::string clientAddr) {
 
         // ---- QUIT ----
         if (cmdUpper == "QUIT") {
-            sendResponse(clientSocket, "221 ulusansigorta.com Gule gule");
+            sendResponse(clientSocket, "221 ulusansigorta.com.tr Gule gule");
             break;
         }
 
