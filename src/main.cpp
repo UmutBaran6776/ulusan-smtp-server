@@ -445,9 +445,9 @@ int main() {
     store.createMailbox("admin");
 
     // Sirket mail hesaplari
-    if (!auth.userExists("bayram")) {
-        auth.registerUser("bayram", "bayram123", UserRole::ADMIN, "Bayram Ulusan");
-        store.createMailbox("bayram");
+    if (!auth.userExists("info")) {
+        auth.registerUser("info", "info123", UserRole::ADMIN, "Ulusan Sigorta Bilgi");
+        store.createMailbox("info");
     }
     if (!auth.userExists("fatos")) {
         auth.registerUser("fatos", "fatos123", UserRole::USER, "Fatos Ulusan");
@@ -460,11 +460,8 @@ int main() {
     }
 
     // Mail yonlendirmelerini ayarla
-    store.addForwardingRule("teknik", "bayram"); // Eger bayram 'info' rolunu ustleniyorsa
+    store.addForwardingRule("teknik", "info");
     store.addForwardingRule("teknik", "fatos");
-    
-    // NOT: Kullanicilar bayram ve fatos oldugu icin info yerine bayram'a yonlendirdim.
-    // Eger 'info' adinda da bir kullanici olsun isterseniz onu da ekleyebilirim.
 
     // SMTP ve POP3 sunucularini baslat
     SmtpServer smtp(SMTP_PORT, auth, store);
@@ -490,8 +487,9 @@ int main() {
               << (pop3Ok ? " [AKTIF]" : " [HATA]") << "\n";
     std::cout << "  ------------------------------------------------------------\n";
     std::cout << "       Sirket Hesaplari:\n";
-    std::cout << "         bayram@ulusansigorta.com.tr (admin / bayram123)\n";
+    std::cout << "         info@ulusansigorta.com.tr   (admin / info123)\n";
     std::cout << "         fatos@ulusansigorta.com.tr  (user  / fatos123)\n";
+    std::cout << "         teknik@ulusansigorta.com.tr (yonlendirme adresi)\n";
     std::cout << "         admin                       (admin / admin123)\n";
     std::cout << "  ============================================================\n";
 
