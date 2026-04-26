@@ -445,9 +445,9 @@ int main() {
     store.createMailbox("admin");
 
     // Sirket mail hesaplari
-    if (!auth.userExists("info")) {
-        auth.registerUser("info", "info123", UserRole::ADMIN, "Ulusan Sigorta Bilgi");
-        store.createMailbox("info");
+    if (!auth.userExists("bayram")) {
+        auth.registerUser("bayram", "bayram123", UserRole::ADMIN, "Bayram Ulusan");
+        store.createMailbox("bayram");
     }
     if (!auth.userExists("fatos")) {
         auth.registerUser("fatos", "fatos123", UserRole::USER, "Fatos Ulusan");
@@ -478,9 +478,9 @@ int main() {
               << (pop3Ok ? " [AKTIF]" : " [HATA]") << "\n";
     std::cout << "  ------------------------------------------------------------\n";
     std::cout << "       Sirket Hesaplari:\n";
-    std::cout << "         info@ulusansigorta.com.tr  (admin / info123)\n";
-    std::cout << "         fatos@ulusansigorta.com.tr (user  / fatos123)\n";
-    std::cout << "         admin                      (admin / admin123)\n";
+    std::cout << "         bayram@ulusansigorta.com.tr (admin / bayram123)\n";
+    std::cout << "         fatos@ulusansigorta.com.tr  (user  / fatos123)\n";
+    std::cout << "         admin                       (admin / admin123)\n";
     std::cout << "  ============================================================\n";
 
     std::this_thread::sleep_for(std::chrono::seconds(2));
