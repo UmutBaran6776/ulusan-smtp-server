@@ -196,6 +196,16 @@ void SmtpServer::handleClient(SOCKET clientSocket, std::string clientAddr) {
                         utils::extractEmail(recipient));
                     if (auth.userExists(rcptUser)) {
                         store.saveMail(rcptUser, mail, false); // inbox
+
+                        // Mail yonlendirme kontrolu
+                        auto targets = store.getForwardingTargets(rcptUser);
+                        for (const auto& target : targets) {
+                            if (auth.userExists(target)) {
+                                store.saveMail(target, mail, false);
+                                LOG_INFO("SMTP: Mail yonlendirildi: " +
+                                         rcptUser + " -> " + target);
+                            }
+                        }
                     }
                 }
 

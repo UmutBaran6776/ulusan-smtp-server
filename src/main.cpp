@@ -453,6 +453,18 @@ int main() {
         auth.registerUser("fatos", "fatos123", UserRole::USER, "Fatos Ulusan");
         store.createMailbox("fatos");
     }
+    // Teknik adinda sanal bir kullanici acalim ki ona mail atilabilsin
+    if (!auth.userExists("teknik")) {
+        auth.registerUser("teknik", "teknik123", UserRole::USER, "Teknik Destek");
+        store.createMailbox("teknik");
+    }
+
+    // Mail yonlendirmelerini ayarla
+    store.addForwardingRule("teknik", "bayram"); // Eger bayram 'info' rolunu ustleniyorsa
+    store.addForwardingRule("teknik", "fatos");
+    
+    // NOT: Kullanicilar bayram ve fatos oldugu icin info yerine bayram'a yonlendirdim.
+    // Eger 'info' adinda da bir kullanici olsun isterseniz onu da ekleyebilirim.
 
     // SMTP ve POP3 sunucularini baslat
     SmtpServer smtp(SMTP_PORT, auth, store);

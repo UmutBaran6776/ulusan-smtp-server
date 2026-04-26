@@ -257,3 +257,25 @@ long long MailStore::getMailboxSize(const std::string& username) {
     calcSize(sentPath);
     return totalSize;
 }
+
+// ==================== Mail Yonlendirme ====================
+
+// Yonlendirme kurali ekle: source'a gelen mailler target'a da iletilir
+void MailStore::addForwardingRule(const std::string& source, const std::string& target) {
+    forwardingRules[source].push_back(target);
+    LOG_INFO("MailStore: Yonlendirme eklendi: " + source + " -> " + target);
+}
+
+// Belirli bir kullanici icin yonlendirme hedeflerini getir
+std::vector<std::string> MailStore::getForwardingTargets(const std::string& username) {
+    auto it = forwardingRules.find(username);
+    if (it != forwardingRules.end()) {
+        return it->second;
+    }
+    return {};
+}
+
+// Kullanicinin yonlendirme kurali var mi
+bool MailStore::hasForwarding(const std::string& username) {
+    return forwardingRules.find(username) != forwardingRules.end();
+}

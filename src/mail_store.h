@@ -3,12 +3,14 @@
 
 #include <string>
 #include <vector>
+#include <map>
 #include <mutex>
 
 /*
  * MailStore - Dosya Tabanli E-posta Depolama
  * Her kullanici icin data/mailboxes/<username>/inbox ve sent dizinleri olusturulur.
  * E-postalar .eml dosyalari olarak saklanir.
+ * Mail yonlendirme (forwarding) destegi vardir.
  */
 
 struct Mail {
@@ -26,6 +28,9 @@ private:
     std::string baseDir;
     std::mutex mtx;
 
+    // Mail yonlendirme tablosu: kaynak -> hedef listesi
+    std::map<std::string, std::vector<std::string>> forwardingRules;
+
     std::string getInboxPath(const std::string& username);
     std::string getSentPath(const std::string& username);
     std::string sanitizeFilename(const std::string& name);
@@ -42,6 +47,11 @@ public:
     bool deleteMail(const std::string& username, int index, bool isSent = false);
     int getMailCount(const std::string& username, bool isSent = false);
     long long getMailboxSize(const std::string& username);
+
+    // Mail yonlendirme
+    void addForwardingRule(const std::string& source, const std::string& target);
+    std::vector<std::string> getForwardingTargets(const std::string& username);
+    bool hasForwarding(const std::string& username);
 };
 
 #endif // MAIL_STORE_H
