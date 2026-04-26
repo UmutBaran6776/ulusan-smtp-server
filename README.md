@@ -97,6 +97,34 @@ ulusan-smtp-server/
 └── README.md
 ```
 
+## Ağ Yapılandırması
+
+### Statik IP
+- **Sunucu IP:** 78.186.12.5
+
+### DNS Kayıtları (ulusansigorta.com)
+Domain sağlayıcınızın DNS yönetim panelinden şu kayıtları ekleyin:
+
+| Kayıt Tipi | Ad | Değer | Öncelik |
+|---|---|---|---|
+| A | mail | 78.186.12.5 | - |
+| MX | @ | mail.ulusansigorta.com | 10 |
+| TXT | @ | v=spf1 ip4:78.186.12.5 ~all | - |
+
+### Firewall / Port Yönlendirme
+Router'ınızda şu portları sunucu bilgisayarına yönlendirin:
+
+| Port | Protokol | Servis |
+|---|---|---|
+| 25 | TCP | SMTP |
+| 11 | TCP | POP3 |
+
+### Windows Firewall Kuralı
+```powershell
+netsh advfirewall firewall add rule name="SMTP" dir=in action=allow protocol=TCP localport=25
+netsh advfirewall firewall add rule name="POP3" dir=in action=allow protocol=TCP localport=11
+```
+
 ## Lisans
 
 Bu proje eğitim amaçlı geliştirilmiştir.
