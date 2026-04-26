@@ -4,7 +4,7 @@
 # ============================================================
 
 CXX = g++
-CXXFLAGS = -std=c++17 -Wall -Wextra -O2
+CXXFLAGS = -std=c++17 -Wall -Wextra -O2 -static-libgcc -static-libstdc++
 LDFLAGS = -lws2_32
 
 SRCDIR = src

@@ -5,7 +5,7 @@ echo  Bil314 - Bilgisayar Aglari Projesi
 echo ============================================================
 echo.
 
-g++ -std=c++17 -Wall -Wextra -O2 -o ulusan_smtp.exe ^
+g++ -std=c++17 -Wall -Wextra -O2 -static-libgcc -static-libstdc++ -o ulusan_smtp.exe ^
     src/main.cpp ^
     src/auth.cpp ^
     src/mail_store.cpp ^
