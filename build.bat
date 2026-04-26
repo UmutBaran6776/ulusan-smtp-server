@@ -3,9 +3,9 @@ echo ============================================================
 echo  Ulusan Sigorta SMTP Sunucusu - Derleme
 echo  Bil314 - Bilgisayar Aglari Projesi
 echo ============================================================
-echo.
+echo Derleniyor...
 
-g++ -std=c++17 -Wall -Wextra -O2 -static-libgcc -static-libstdc++ -o ulusan_smtp.exe ^
+g++ -std=c++17 -Wall -Wextra -O2 -static -static-libgcc -static-libstdc++ -o ulusan_smtp.exe ^
     src/main.cpp ^
     src/auth.cpp ^
     src/mail_store.cpp ^
