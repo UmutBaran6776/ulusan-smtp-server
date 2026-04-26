@@ -1,0 +1,19 @@
+# Derlenmiş dosyalar
+*.exe
+*.o
+*.obj
+
+# Veri dosyalari (runtime'da olusur)
+data/users.dat
+data/server.log
+data/mailboxes/
+
+# IDE dosyalari
+.vscode/
+.idea/
+*.swp
+*.sln
+*.vcxproj*
+
+# Gecici dosyalar
+install_gcc.bat
