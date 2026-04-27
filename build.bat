@@ -1,8 +1,12 @@
 @echo off
 echo ============================================================
-echo  Ulusan Sigorta SMTP Sunucusu - Derleme
+echo  Ulusan Sigorta SMTP/IMAP Sunucusu - Derleme
 echo  Bil314 - Bilgisayar Aglari Projesi
 echo ============================================================
+
+REM MinGW PATH ayari
+set PATH=C:\msys64\ucrt64\bin;%PATH%
+
 echo Derleniyor...
 
 g++ -std=c++17 -Wall -Wextra -O2 -static -static-libgcc -static-libstdc++ -o ulusan_smtp.exe ^

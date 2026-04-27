@@ -445,23 +445,22 @@ int main() {
     store.createMailbox("admin");
 
     // Sirket mail hesaplari
-    if (!auth.userExists("info")) {
-        auth.registerUser("info", "info123", UserRole::ADMIN, "Ulusan Sigorta Bilgi");
-        store.createMailbox("info");
+    if (!auth.userExists("ulusan")) {
+        auth.registerUser("ulusan", "ulusan123", UserRole::ADMIN, "Umut Baran Ulusan");
+        store.createMailbox("ulusan");
     }
-    if (!auth.userExists("fatos")) {
-        auth.registerUser("fatos", "fatos123", UserRole::USER, "Fatos Ulusan");
-        store.createMailbox("fatos");
+    if (!auth.userExists("berkay")) {
+        auth.registerUser("berkay", "berkay123", UserRole::USER, "Berkay Demirci");
+        store.createMailbox("berkay");
     }
-    // Teknik adinda sanal bir kullanici acalim ki ona mail atilabilsin
-    if (!auth.userExists("teknik")) {
-        auth.registerUser("teknik", "teknik123", UserRole::USER, "Teknik Destek");
-        store.createMailbox("teknik");
+    if (!auth.userExists("destek")) {
+        auth.registerUser("destek", "destek123", UserRole::USER, "Teknik Destek");
+        store.createMailbox("destek");
     }
 
     // Mail yonlendirmelerini ayarla
-    store.addForwardingRule("teknik", "info");
-    store.addForwardingRule("teknik", "fatos");
+    store.addForwardingRule("destek", "ulusan");
+    store.addForwardingRule("destek", "berkay");
 
     // SMTP ve IMAP sunucularini baslat
     SmtpServer smtp(SMTP_PORT, auth, store);
@@ -487,9 +486,9 @@ int main() {
               << (imapOk ? " [AKTIF]" : " [HATA]") << "\n";
     std::cout << "  ------------------------------------------------------------\n";
     std::cout << "       Sirket Hesaplari:\n";
-    std::cout << "         info@ulusansigorta.com.tr   (admin / info123)\n";
-    std::cout << "         fatos@ulusansigorta.com.tr  (user  / fatos123)\n";
-    std::cout << "         teknik@ulusansigorta.com.tr (yonlendirme adresi)\n";
+    std::cout << "         ulusan@ulusansigorta.com.tr (admin / ulusan123)\n";
+    std::cout << "         berkay@ulusansigorta.com.tr (user  / berkay123)\n";
+    std::cout << "         destek@ulusansigorta.com.tr (yonlendirme adresi)\n";
     std::cout << "         admin                       (admin / admin123)\n";
     std::cout << "  ============================================================\n";
 
