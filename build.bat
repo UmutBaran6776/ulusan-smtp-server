@@ -5,7 +5,7 @@ echo  Bil314 - Bilgisayar Aglari Projesi
 echo ============================================================
 
 REM MinGW PATH ayari
-set PATH=C:\msys64\ucrt64\bin;%PATH%
+set PATH=C:\msys64\mingw64\bin;%PATH%
 
 echo Derleniyor...
 

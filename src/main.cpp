@@ -19,7 +19,7 @@
 namespace fs = std::filesystem;
 
 // ==================== Global Degiskenler ====================
-static const int SMTP_PORT = 25;
+static const int SMTP_PORT = 587;
 static const int IMAP_PORT = 143;
 static const std::string DOMAIN = "ulusansigorta.com.tr";
 
